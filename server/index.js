@@ -12,6 +12,7 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:3000',
   'https://quiz-app-uthd.vercel.app/',
+  'https://quizapptanay.netlify.app/',
   'http://localhost:5173',  // <-- Replace with your deployed frontend URL
 ];
 
