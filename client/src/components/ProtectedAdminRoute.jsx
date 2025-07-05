@@ -1,7 +1,7 @@
 // src/components/ProtectedAdminRoute.jsx
-import React,{ useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import BASE_URL from '../utils/api';
+import axiosInstance from '../utils/axios';
 
 const ProtectedAdminRoute = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(null); // null = loading, false = blocked
@@ -12,16 +12,16 @@ const ProtectedAdminRoute = ({ children }) => {
       if (!token) return setIsAdmin(false);
 
       try {
-        const res = await fetch(`${BASE_URL}/api/user/me`, {
+        const { data } = await axiosInstance.get('/api/user/me', {
           headers: { Authorization: `Bearer ${token}` },
         });
-        const data = await res.json();
-        if (res.ok && data.role === 'admin') {
+        if (data && data.role === 'admin') {
           setIsAdmin(true);
         } else {
           setIsAdmin(false);
         }
-      } catch {
+      } catch (err) {
+        console.error('Admin route check failed:', err);
         setIsAdmin(false);
       }
     };
