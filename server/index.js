@@ -9,25 +9,10 @@ const quizRoutes = require('./routes/quiz');
 const app = express();
 
 // app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
-const allowedOrigins = [
-  'http://localhost:3000',
-  'https://quiz-app-uthd.vercel.app/',
-  'https://quizapptanay.netlify.app/',
-  'http://localhost:5173',  // <-- Replace with your deployed frontend URL
-];
-
+// Allow requests from any origin (public API)
 app.use(cors({
-  origin: function(origin, callback){
-  console.log("Request Origin:", origin);
-  if(!origin) return callback(null, true);
-  if(allowedOrigins.indexOf(origin) === -1){
-    const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-    return callback(new Error(msg), false);
-  }
-  return callback(null, true);
-}
-,
-  credentials: true
+  origin: true,
+  credentials: true,
 }));
 
 app.use((req, res, next) => {
