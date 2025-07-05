@@ -12,3 +12,9 @@
 
 [environment]
   NODE_VERSION = "18"
+
+# SPA fallback so router paths work on refresh
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
